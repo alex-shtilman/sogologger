@@ -4,5 +4,9 @@
     "description": "logging library",
     "license": "MIT",
     "repository": "alex-shtilman/sogologger",
-    "main": "index.js"
+    "main": "index.js",
+    "dependencies": {
+        "@stomp/stompjs": "^6.1.0",
+        "sockjs-client": "^1.5.1"
+    }
 }
