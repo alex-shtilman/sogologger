@@ -1,6 +1,6 @@
 {
     "name": "@gungam/sogologger",
-    "version": "2.0.1",
+    "version": "2.0.3",
     "description": "logging library",
     "license": "MIT",
     "repository": "alex-shtilman/sogologger",

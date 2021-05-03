@@ -21,4 +21,4 @@ class SogoLogger {
   }
 }
 
-module.exports = SogoLogger;
+export default SogoLogger;
