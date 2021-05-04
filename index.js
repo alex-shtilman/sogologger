@@ -12,13 +12,13 @@ class SogoLogger {
   connect() {
     this.socket = new SockJS(this.loggerUrl);
     this.stompClient = Stomp.over(this.socket);
-    stompClient.connect({}, function (frame) {
+    this.stompClient.connect({}, function (frame) {
       console.info("Connected: " + frame);
-      stompClient.send("/app/connections", {}, JSON.stringify(frame));
+      this.stompClient.send("/app/connections", {}, JSON.stringify(frame));
     });
     this.nodePlayer.on("stats", (s) => {
       s["clientId"] = this.clientId;
-      stompClient.send("/app/stats", {}, JSON.stringify(s));
+      this.stompClient.send("/app/stats", {}, JSON.stringify(s));
     });
   }
   disconnect() {
