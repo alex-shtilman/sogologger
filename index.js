@@ -6,18 +6,26 @@ class SogoLogger {
     this.loggerUrl = loggerUrl;
     this.clientId = clientId;
     this.nodePlayer = nodePlayer;
+    this.stompClient = null;
+    this.socket = null;
   }
-  init() {
-    const socket = new SockJS(this.loggerUrl);
-    const stompClient = Stomp.over(socket);
+  connect() {
+    this.socket = new SockJS(this.loggerUrl);
+    this.stompClient = Stomp.over(this.socket);
     stompClient.connect({}, function (frame) {
-      console.log("Connected: " + frame);
+      console.info("Connected: " + frame);
+      stompClient.send("/app/connections", {}, JSON.stringify(frame));
     });
     this.nodePlayer.on("stats", (s) => {
-      console.log(s);
       s["clientId"] = this.clientId;
-      stompClient.send("/app/chat", {}, JSON.stringify(s));
+      stompClient.send("/app/stats", {}, JSON.stringify(s));
     });
+  }
+  disconnect() {
+    if (this.stompClient !== null) {
+      this.stompClient.disconnect();
+    }
+    console.info("Disconnected");
   }
 }
 
